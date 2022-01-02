@@ -1,4 +1,4 @@
---These code lock the table, so that the table cannot have new key and/or value
+--These code lock the table, so that the table cannot have new key and/or value (still can be bypassed by rawset lol)
 local mt = {}
 
 mt.__metatable = "locked"
