@@ -1,12 +1,7 @@
+--These code lock the table, so that the table cannot have new key and/or value
 local mt = {}
 
 mt.__metatable = "locked"
-
-function writeTable(array)
-    for i, v in pairs(array) do
-       print(i, v) 
-    end
-end
 
 function mt.__index(array, key)
     return rawget(array, key)
