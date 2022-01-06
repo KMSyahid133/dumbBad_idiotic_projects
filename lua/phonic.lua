@@ -1,8 +1,8 @@
 local array = require("array")
-local mainModule = require("project")
+local mainModule = require("mainmodule")
 local phonicModule = {}
 
---Phonic alphabets
+--Military alphabets
 local phonicCharacter = {["A"] = "Alpha", ["B"] = "Beta", ["C"] = "Charlie",
         ["D"] = "Delta", ["E"] = "Echo", ["F"] = "Foxtrot",
         ["G"] = "Golf", ["H"] = "Hotel", ["I"] = "India",
@@ -13,21 +13,23 @@ local phonicCharacter = {["A"] = "Alpha", ["B"] = "Beta", ["C"] = "Charlie",
         ["V"] = "Victor", ["W"] = "Whiskey", ["X"] = "X-ray",
         ["Y"] = "Yankee", ["Z"] = "Zulu", [" "] = "(space)"}
 
---Too lazy
-local phonicReverse = array.reverseDictionary(phonicCharacter)
 
---Encode string; 
---  Input: "Hello, World!"
---  Output: "Hotel Echo Lima Lima Oscar , (space) Whiskey Oscar Romeo Lima Delta !"
+local phonicReversed = array.reverseDictionary(phonicCharacter)
+local phonicLower = array.lower(phonicCharacter)
+local phonicLowerReversed = array.lower(phonicReversed)
+
+--Input: "Hello, World!"
+--Output: "Hotel echo lima lima oscar , (space) Whiskey oscar romeo lima delta !"
+
 function phonicModule.encode(stringToEncode)
     local encoded = ""
 
     for i = 1, #stringToEncode do
         local character = stringToEncode:sub(i, i)
-        character = string.upper(character)
-        local phonic = array.findWithIndex(phonicCharacter, character)
+        --character = string.upper(character)
+        local phonic = phonicCharacter[character] or phonicLower[character] --array.findWithIndex(phonicCharacter, character)
 
-        print(character, phonic)
+        --print(character, phonic)
 
         if phonic then
             encoded = encoded..phonic.." "
@@ -39,15 +41,15 @@ function phonicModule.encode(stringToEncode)
     return encoded
 end
 
---Decode string
---  Input: Hotel Echo Lima Lima Oscar , (space) Whiskey Oscar Romeo Lima Delta !
---  Output: hello, world!
+--Input: "Hotel echo lima lima oscar , (space) Whiskey oscar romeo lima delta !"
+--Output: "hello, world!"
 function phonicModule.decode(stringToDecode)
     local decoded = ""
-    local splitted = mainModule.split(stringToDecode, " ")
+    local splitted = mainModule.stringSplit(stringToDecode, " ")
 
     for i, v in pairs(splitted) do
-        local character = array.findWithIndex(phonicReverse, v)
+        print(v)
+        local character = phonicReversed[v] or phonicLowerReversed[v]--array.findWithIndex(phonicReversed, v)
         if character then
             decoded = decoded..character
         else
@@ -57,6 +59,5 @@ function phonicModule.decode(stringToDecode)
 
     return decoded:lower()
 end
-
 
 return phonicModule
