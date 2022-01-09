@@ -57,7 +57,7 @@ function phonicModule.decode(stringToDecode)
         end
     end
 
-    return decoded:lower()
+    return decoded
 end
 
 return phonicModule
