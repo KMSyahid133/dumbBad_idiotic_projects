@@ -2,7 +2,6 @@
 local array = require("array")
 local mainModule = require("mainmodule")
 local fileMain = require("filemain")
-
 local project = {}
 
 local function swap(list, index1, index2)
@@ -31,6 +30,12 @@ local function isSorted(list)
     return true
 end
 
+--[[
+  Performance:
+  Worst case: (O)n^2
+  Average case: (O)n^2
+  Best case: (O)n
+--]]
 function project.bubbleSort(list)
     local newList = array.clone(list)
     --print(array.compare(list, newList))
@@ -67,6 +72,12 @@ function project.bubbleSort(list)
     return newList, comparison, loop
 end
 
+--[[
+  Performance:
+  Worst case: (O)n^2
+  Average case: (O)n^2
+  Best case: (O)n
+--]]
 function project.insertionSort(list)
     local newList = array.clone(list)
     local loop = 0
@@ -87,11 +98,17 @@ function project.insertionSort(list)
     return newList, comparison, loop
 end
 
+--[[
+  Performance:
+  Worst case: (O)(n x n!)
+  Average case: (O)(n x n!)
+  Best case: (O)n
+--]]
 function project.bogoSort(list)
     local newList = array.clone(list)
-    local original = array.clone(newList)
+    --local original = array.clone(newList)
     local loops = 0
-    array.printout(newList)
+    --array.printout(newList)
     while not isSorted(newList) do
         for i, v in ipairs(newList) do
             local newIndex = math.random(1, #newList - 1)
@@ -104,6 +121,35 @@ function project.bogoSort(list)
     collectgarbage()
 
     return newList, loops
+end
+
+--[[
+  Performance:
+  Worst case: (O)n^2
+  Average case: (O)n^2
+  Best case: (O)n^2
+--]]
+function project.selectionSort(list)
+    local newArray = array.clone(list)
+
+    for i, v in ipairs(newArray) do
+        local currentMinIndex = i
+
+        for k = (i + 1), #newArray, 1 do
+            if newArray[k] < newArray[currentMinIndex] then
+                currentMinIndex = k
+            end
+
+
+        end
+
+        if currentMinIndex ~= i then
+            swap(newArray, i, currentMinIndex)
+        end
+
+    end
+
+    return newArray
 end
 
 return project
