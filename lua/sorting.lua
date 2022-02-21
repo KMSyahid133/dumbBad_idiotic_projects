@@ -38,38 +38,22 @@ end
 --]]
 function project.bubbleSort(list)
     local newList = array.clone(list)
-    --print(array.compare(list, newList))
-    local loop = 0
-    local comparison = 0
-    --local lastArray = {}
-    local objectsToRemove = {}
 
     repeat
         for count, value in ipairs(newList) do
-            local firstIndex = count
-            local secondIndex = count + 1
-            local firstValue = value
-            local secondValue = newList[secondIndex]
             
-            if type(secondValue) == "nil" then
-                secondValue = firstValue
-                table.insert(objectsToRemove, secondIndex)
-            end
-
-            if firstValue > secondValue then
-                swap(newList, firstIndex, secondIndex)
+            if count ~= #newList then
+                if value > newList[count + 1] then
+                    swap(newList, count, count + 1)
+                end 
             end
             --lastArray = array.clone(newList)
-            comparison = comparison + 1
+            
         end
-        loop = loop + 1
+        
     until isSorted(newList)
 
-    for i, v in ipairs(objectsToRemove) do
-        newList[v] = nil
-    end
-
-    return newList, comparison, loop
+    return newList
 end
 
 --[[
