@@ -1,9 +1,3 @@
---Current Project: Sorting
-local array = require("array")
-local mainModule = require("mainmodule")
-local fileMain = require("filemain")
-local project = {}
-
 local function swap(list, index1, index2)
     local val1 = list[index1]
     local val2 = list[index2]
@@ -89,6 +83,7 @@ end
   Best case: (O)n
 --]]
 function project.bogoSort(list)
+    math.randomseed(os.time())
     local newList = array.clone(list)
     --local original = array.clone(newList)
     local loops = 0
@@ -136,4 +131,9 @@ function project.selectionSort(list)
     return newArray
 end
 
-return project
+function project.mergeSort(list)
+    local cloneList = array.clone(list)
+
+
+    return cloneList
+end
