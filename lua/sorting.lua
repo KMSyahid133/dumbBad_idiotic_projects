@@ -7,18 +7,9 @@ local function swap(list, index1, index2)
 end
 
 local function isSorted(list)
-
-    for i = 1, #list, 1 do
-        local firstIndex = i
-        local secondIndex = i + 1
-
-        local firstValue = list[firstIndex]
-        local secondValue = list[secondIndex]
-        if secondIndex > #list then
-            secondValue = firstValue + 1
-        end
-        if firstValue > secondValue then
-            return false
+    for i = 1, #list - 1, 1 do
+        if list[i] > list[i + 1] then
+           return false 
         end
     end
     return true
